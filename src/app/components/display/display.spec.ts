@@ -1,0 +1,22 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { DisplayComponent } from './display';
+
+describe('Display', () => {
+  let component: DisplayComponent;
+  let fixture: ComponentFixture<DisplayComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [DisplayComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(DisplayComponent);
+    component = fixture.componentInstance;
+    await fixture.whenStable();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

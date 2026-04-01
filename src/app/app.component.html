@@ -1,0 +1,128 @@
+<div class="hero-section">
+  <div class="hero-content">
+    <h1>✨ Form Wizard</h1>
+    <p>Build beautiful forms in seconds • Drag & Drop • Real-time Preview</p>
+  </div>
+</div>
+
+<div class="main-container">
+  <div class="builder-panel">
+    <div class="panel-header">
+      <div class="header-icon">🎨</div>
+      <h3>Form Builder</h3>
+      <p>Design your custom form fields</p>
+    </div>
+
+    <div class="add-field-section">
+      <div class="input-group">
+        <label>Field Label</label>
+        <div class="input-wrapper">
+          <span class="input-icon">📝</span>
+          <input
+            type="text"
+            placeholder="e.g., Username, Email, Phone"
+            [(ngModel)]="newField.label"
+            name="label"
+            [ngModelOptions]="{standalone: true}"
+            (keyup.enter)="addField()"
+          />
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Field Type</label>
+        <div class="input-wrapper">
+          <span class="input-icon">🔧</span>
+          <select
+            [(ngModel)]="newField.type"
+            name="type"
+            [ngModelOptions]="{standalone: true}"
+          >
+            <option value="text">Text</option>
+            <option value="email">Email</option>
+            <option value="password">Password</option>
+            <option value="tel">Telephone</option>
+            <option value="number">Number</option>
+            <option value="date">Date</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn-add" (click)="addField()">
+        <span class="btn-icon">➕</span>
+        Add Field
+      </button>
+    </div>
+
+    <div class="stats-bar" *ngIf="fields.length > 0">
+      <div class="stat">
+        <span class="stat-number">{{ fields.length }}</span>
+        <span class="stat-label">Fields Added</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">{{ getFieldTypes() }}</span>
+        <span class="stat-label">Field Types</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="preview-panel">
+    <div class="panel-header">
+      <div class="header-icon">👁️</div>
+      <h3>Live Preview</h3>
+      <p>Your form in real-time</p>
+    </div>
+
+    <div class="form-preview">
+      <div class="form-header">
+        <h4>✨ Custom Form</h4>
+        <p class="form-subtitle">Fill in the details below</p>
+      </div>
+
+      <form (ngSubmit)="submitForm()" class="dynamic-form">
+        <div *ngFor="let field of fields; let i = index" class="form-field" [@slideIn]>
+          <div class="field-header">
+            <label [for]="'field_' + i">
+              <span class="field-icon">{{ getFieldIcon(field.type) }}</span>
+              {{ field.label }}
+            </label>
+            <button type="button" class="btn-delete" (click)="deleteField(i)">
+              <span>🗑️</span>
+            </button>
+          </div>
+
+          <div class="input-wrapper-glow">
+            <input
+              [type]="field.type"
+              [(ngModel)]="field.value"
+              [name]="'field_' + i"
+              [id]="'field_' + i"
+              [placeholder]="'Enter your ' + field.label.toLowerCase()"
+              [ngModelOptions]="{standalone: true}"
+              class="glow-input"
+            />
+          </div>
+        </div>
+
+        <div *ngIf="fields.length === 0" class="empty-preview">
+          <div class="empty-icon">🎯</div>
+          <p>No fields added yet</p>
+          <small>Start by adding fields from the builder panel</small>
+        </div>
+
+        <button type="submit" class="btn-submit" *ngIf="fields.length > 0">
+          <span class="btn-icon">🚀</span>
+          Submit Form
+          <span class="btn-glow"></span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="toast-notification" *ngIf="showToast">
+  <div class="toast-content">
+    <span class="toast-icon">✅</span>
+    <span class="toast-message">{{ toastMessage }}</span>
+  </div>
+</div>

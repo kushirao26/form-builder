@@ -1,0 +1,70 @@
+<div class="signup-container">
+  <div class="signup-card">
+    <h2>Sign Up</h2>
+    
+    <app-display 
+      *ngIf="errorMessage" 
+      variant="error" 
+      title="Error">
+      {{ errorMessage }}
+    </app-display>
+
+    <app-display 
+      *ngIf="successMessage" 
+      variant="success" 
+      title="Success">
+      {{ successMessage }}
+    </app-display>
+
+    <form (ngSubmit)="onSubmit()">
+      <app-input
+        type="text"
+        label="Full Name"
+        placeholder="Enter your full name"
+        [(ngModel)]="signupData.name"
+        name="name"
+        [isError]="!!errorMessage && !signupData.name"
+      ></app-input>
+
+      <app-input
+        type="email"
+        label="Email Address"
+        placeholder="Enter your email"
+        [(ngModel)]="signupData.email"
+        name="email"
+        [isError]="!!errorMessage && !signupData.email"
+      ></app-input>
+
+      <app-input
+        type="password"
+        label="Password"
+        placeholder="Create a password"
+        [(ngModel)]="signupData.password"
+        name="password"
+        [isError]="!!errorMessage && signupData.password !== signupData.confirmPassword"
+      ></app-input>
+
+      <app-input
+        type="password"
+        label="Confirm Password"
+        placeholder="Confirm your password"
+        [(ngModel)]="signupData.confirmPassword"
+        name="confirmPassword"
+        [isError]="!!errorMessage && signupData.password !== signupData.confirmPassword"
+      ></app-input>
+
+      <app-button
+        type="submit"
+        variant="primary"
+        [loading]="loading"
+        [fullWidth]="true"
+      >
+        {{ loading ? 'Creating Account...' : 'Sign Up' }}
+      </app-button>
+    </form>
+
+    <div class="login-link">
+      Already have an account? <a href="/login">Login</a>
+    </div>
+  </div>
+</div>

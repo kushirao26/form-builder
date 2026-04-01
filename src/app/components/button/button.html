@@ -1,0 +1,10 @@
+<button
+  [type]="type"
+  [class]="getButtonClasses()"
+  [disabled]="disabled || loading"
+  (click)="handleClick($event)"
+  [attr.aria-label]="ariaLabel || null"
+>
+  <span *ngIf="loading" class="spinner"></span>
+  <ng-content></ng-content>
+</button>

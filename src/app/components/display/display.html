@@ -1,0 +1,8 @@
+<div *ngIf="show" class="display-container" [class]="getVariantClass()">
+  <div *ngIf="title" class="display-title">
+    {{ title }}
+  </div>
+  <div class="display-content">
+    <ng-content></ng-content>
+  </div>
+</div>

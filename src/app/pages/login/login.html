@@ -1,0 +1,52 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2>Login</h2>
+    
+    <app-display 
+      *ngIf="errorMessage" 
+      variant="error" 
+      title="Error">
+      {{ errorMessage }}
+    </app-display>
+
+    <app-display 
+      *ngIf="successMessage" 
+      variant="success" 
+      title="Success">
+      {{ successMessage }}
+    </app-display>
+
+    <form (ngSubmit)="onSubmit()">
+      <app-input
+        type="email"
+        label="Email Address"
+        placeholder="Enter your email"
+        [(ngModel)]="loginData.email"
+        name="email"
+        [isError]="!!errorMessage && !loginData.email"
+      ></app-input>
+
+      <app-input
+        type="password"
+        label="Password"
+        placeholder="Enter your password"
+        [(ngModel)]="loginData.password"
+        name="password"
+        [isError]="!!errorMessage && !loginData.password"
+      ></app-input>
+
+      <app-button
+        type="submit"
+        variant="primary"
+        [loading]="loading"
+        [fullWidth]="true"
+      >
+        {{ loading ? 'Logging in...' : 'Login' }}
+      </app-button>
+    </form>
+
+    <div class="signup-link">
+      Don't have an account? <a routerLink="/signup">Sign up</a>
+    </div>
+  </div>
+</div>
