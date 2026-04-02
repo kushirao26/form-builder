@@ -94,7 +94,6 @@ body {
   display: block;
   margin-bottom: 8px;
   font-weight: 600;
-  color: #333;
   font-size: 0.9rem;
 }
 
@@ -119,7 +118,6 @@ body {
   border-radius: 10px;
   font-size: 1rem;
   transition: all 0.3s;
-  background: white;
 }
 
 .input-wrapper input:focus,
@@ -212,7 +210,6 @@ body {
 
 .form-header h4 {
   font-size: 1.5rem;
-  color: #333;
   margin-bottom: 5px;
 }
 
@@ -250,7 +247,6 @@ body {
 
 .field-header label {
   font-weight: 600;
-  color: #333;
   font-size: 0.95rem;
   display: flex;
   align-items: center;
@@ -289,7 +285,6 @@ body {
   border-radius: 10px;
   font-size: 1rem;
   transition: all 0.3s;
-  background: white;
 }
 
 .glow-input:focus {
@@ -382,6 +377,30 @@ body {
   font-size: 1.2rem;
 }
 
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.theme-btn {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+
+  transition: all 0.3s ease;
+}
+
+.theme-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -431,4 +450,20 @@ body {
   .stat-number {
     font-size: 1.2rem;
   }
+  
+:root {
+  --primary-color: #007bff;
+}
+
+h1 {
+  color: var(--primary-color);
+}
+
+button {
+  background-color: var(--primary-color);
+}
+
+input, select {
+  border: 2px solid var(--primary-color);
+}
 }

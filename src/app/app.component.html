@@ -1,7 +1,13 @@
-<div class="hero-section">
-  <div class="hero-content">
-    <h1>✨ Form Wizard</h1>
-    <p>Build beautiful forms in seconds • Drag & Drop • Real-time Preview</p>
+<div class="header">
+  <div class="header-content">
+    <div>
+      <h1>Form Wizard</h1>
+      <p>Build beautiful forms in seconds • Drag & Drop • Real-time Preview</p>
+    </div>
+
+    <button class="theme-btn" (click)="toggleTheme()">
+      {{ isDarkMode ? '☀ Light Mode' : '🌙 Dark Mode' }}
+    </button>
   </div>
 </div>
 
@@ -41,8 +47,8 @@
             <option value="text">Text</option>
             <option value="email">Email</option>
             <option value="password">Password</option>
-            <option value="tel">Telephone</option>
-            <option value="number">Number</option>
+            <option value="tel">Phone Number</option>
+            <option value="number">Numbers</option>
             <option value="date">Date</option>
           </select>
         </div>
