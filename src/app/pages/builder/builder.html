@@ -1,0 +1,140 @@
+<div class="header">
+  <div class="header-content">
+    <h1>Form Wizard</h1>
+    <p>Build beautiful forms in seconds • Drag & Drop • Real-time Preview</p>
+  </div>
+
+  <div class="controls">
+    <input
+      type="color"
+      (input)="updateColor($event)"
+      class="color-picker"
+      value="#667eea"
+    />
+    <button class="theme-btn" (click)="toggleTheme()">
+      {{ isDarkMode ? '☀ Light Mode' : '🌙 Dark Mode' }}
+    </button>
+  </div>
+</div>
+
+<div class="main-container">
+  <div class="builder-panel">
+    <div class="panel-header">
+      <div class="header-icon">🎨</div>
+      <h3>Form Builder</h3>
+      <p>Drag fields into your custom form</p>
+    </div>
+
+    <div class="add-field-section">
+      <div class="toolbox-title">
+        <span>Available Fields</span>
+        <small>Drag any field to the preview panel</small>
+      </div>
+
+      <div
+        cdkDropList
+        #availableList="cdkDropList"
+        [cdkDropListData]="availableFields"
+        [cdkDropListConnectedTo]="[formList]"
+        class="toolbox-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div
+          *ngFor="let field of availableFields"
+          cdkDrag
+          class="field-card"
+        >
+          <div class="field-card-left">
+            <span class="field-icon">{{ getFieldIcon(field.type) }}</span>
+            <div class="field-card-text">
+              <strong>{{ field.label }}</strong>
+              <small>{{ field.type | titlecase }} field</small>
+            </div>
+          </div>
+          <span class="drag-handle">⋮⋮</span>
+        </div>
+      </div>
+
+      <div class="stats-bar">
+        <div class="stat">
+          <span class="stat-number">{{ availableFields.length }}</span>
+          <span class="stat-label">Available Fields</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">{{ formFields.length }}</span>
+          <span class="stat-label">Fields Added</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="preview-panel">
+    <div class="panel-header">
+      <div class="header-icon">👁️</div>
+      <h3>Live Preview</h3>
+      <p>Your form updates in real time</p>
+    </div>
+
+    <div class="form-preview">
+      <div class="form-header">
+        <h4>✨ Custom Form</h4>
+        <p class="form-subtitle">Drop fields here and arrange them as you like</p>
+      </div>
+
+      <div
+        cdkDropList
+        #formList="cdkDropList"
+        [cdkDropListData]="formFields"
+        [cdkDropListConnectedTo]="[availableList]"
+        class="dynamic-form preview-drop-zone"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div
+          *ngFor="let field of formFields; let i = index"
+          class="form-field"
+          cdkDrag
+        >
+          <div class="field-header">
+            <label [for]="'field_' + i">
+              <span class="field-icon">{{ getFieldIcon(field.type) }}</span>
+              {{ field.label }}
+            </label>
+
+            <button type="button" class="btn-delete" (click)="deleteField(i)">
+              <span>🗑️</span>
+            </button>
+          </div>
+
+          <div class="input-wrapper-glow">
+            <input
+              [type]="field.type"
+              [(ngModel)]="field.value"
+              [name]="'field_' + i"
+              [id]="'field_' + i"
+              [placeholder]="'Enter your ' + field.label.toLowerCase()"
+              [ngModelOptions]="{ standalone: true }"
+              class="glow-input"
+            />
+          </div>
+        </div>
+
+        <div *ngIf="formFields.length === 0" class="empty-preview">
+          <div class="empty-icon">🎯</div>
+          <p>No fields added yet</p>
+          <small>Drag fields from the builder panel to start creating your form</small>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="btn-submit"
+        *ngIf="formFields.length > 0"
+        (click)="previewForm()"
+      >
+        <span class="btn-icon">🚀</span>
+        Submit Form Data
+        <span class="btn-glow"></span>
+      </button>
+    </div>
+  </div>
+</div>
